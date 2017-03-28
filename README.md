@@ -24,6 +24,7 @@ composer require profibro/magento2-module-mastercardonlypaystack
 php bin/magento module:enable Profibro_MastercardOnlyPaystack --clear-static-content
 php bin/magento setup:upgrade
 php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy
 ```
 
 * Enable and configure `Paystack` in *Magento Admin* under `Stores/Configuration/Payment` Methods
