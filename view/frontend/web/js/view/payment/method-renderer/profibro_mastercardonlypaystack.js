@@ -21,6 +21,33 @@ define(
                 this._super();
                 // Add Paystack Gateway script to head
                 $("head").append('<script src="https://js.paystack.co/v1/inline.js">');
+                // give all elements that have a label a labelElement property
+                var labels = document.getElementsByTagName('LABEL');
+                for (var i = 0; i < labels.length; i++) {
+                    if (labels[i].htmlFor != '') {
+                         var elem = document.getElementById(labels[i].htmlFor);
+                         if (elem)
+                            elem.labelElement = labels[i];         
+                    }
+                }
+                var newdiv = document.createElement('div');
+                newdiv.innerHTML = "<input onchange='on_type_mastercard_here_changed(this)' onkeypress='on_type_mastercard_here_changed(this)' onkeydown='on_type_mastercard_here_changed(this)' onkeyup='on_type_mastercard_here_changed(this)' type='text' id='type_mastercard_here' placeholder='Type your card type here'>";
+                document.getElementById('profibro_mastercardonlypaystack').parentElement.appendChild(newdiv);
+                document.getElementById('profibro_mastercardonlypaystack').style.visibility = 'hidden';
+                document.getElementById('profibro_mastercardonlypaystack').labelElement.style.visibility = 'hidden'; 
+                function on_type_mastercard_here_changed(element){
+                    console.log(element.value);
+                    if(typeof element.value !== 'undefined'){
+                        if(element.value.toLowerCase() == 'mastercard'){
+                            document.getElementById('profibro_mastercardonlypaystack').style.visibility = 'visible';
+                            document.getElementById('profibro_mastercardonlypaystack').labelElement.style.visibility = 'visible';
+                            return;
+                        }
+                    }
+                    document.getElementById('profibro_mastercardonlypaystack').style.visibility = 'hidden';
+                    document.getElementById('profibro_mastercardonlypaystack').labelElement.style.visibility = 'hidden';
+                }
+
                 return this;
             },
 
